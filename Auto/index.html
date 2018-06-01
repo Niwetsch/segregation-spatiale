@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Atlas géolinguistique du Tyrol italien</title>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="style.css">
+     <script type="text/javascript" href="script.js"></script>
+     <script type="text/javascript" src="Tout.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+     <script src="https://d3js.org/d3.v4.min.js"></script>
+     <script charset="UTF-8" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.1.6/d3.min.js"></script>
+     <link rel="stylesheet" href="prism/prism.css" />
+     <!--<link rel="stylesheet" href="awesomplete.css" />
+     <script src="awesomplete.js"></script>-->
+     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.24/jquery.autocomplete.min.js"></script>
+     <!--https://www.w3schools.com/howto/howto_js_popup.asp-->
+</head>
+<body>
+     <div class="row" class="hidden-xs hidden-sm visible-md visible-lg">
+          <h2 class="col-xs-12 col-md-12">La ségrégation spatiale intercommunale: la contiguïté spatiale comme critère de similitude</h2>
+          <div class ="col-md-2 col-lg-2" id='map'><script type="text/javascript" src="script.js"></script></div>
+          <div class = "container" style="height: 100px;">
+               <section class="col-md-2 col-lg-2" id="commandes">
+                    <button class="popup" onclick="infobulle()">Info <!--onblur="masque()"-->
+                    <span class="popuptext" id="myPopup">Les autocorrélations spatiales montrent une similarité statistique entre une commune désignée et ses voisines limitrophes. Plus la valeur est proche de 1 et plus la commune choisie est similaire et dépendante de ses voisines; plus la valeur est proche de -1, plus elle est s'oppose, mais reste dépendante. Proche de 0, il n'y a aucune dépendance</span>
+               </div>
+                    <!--<button name ='bouton' onclick='centrer();'>Recentrer la carte</button>-->
+                <!--<div class="form-group">
+                    <label for="Commune">Commune:</label>
+                    <select id="Commune" class="form-control input-sm">
+                         <option value="">Sélectionner une commune</option>
+                         <option onclick="centrer_sur(45.7577534,11.0002563)">Ala</option>
+                         <option onclick="centrer_sur(46.1459629,11.194537)">Albiano</option>
+                         <option onclick="centrer_sur(45.979074,11.0945555)">Aldeno</option>
+                         <option onclick="centrer_sur(46.3670565,11.3539265)">Aldino</option>
+                         <option onclick="centrer_sur(46.3953111,11.1442621)">Amblar</option>
+                         <option onclick="centrer_sur(46.1661111,11.0051666)">Andalo</option>
+                         <option onclick="centrer_sur(46.5188794,11.2332777)">Andriano</option>
+                         <option onclick="centrer_sur(46.2777830,11.3673416)">Anterivo</option>
+                         <option onclick="centrer_sur(46.4431279,11.2600254)">Appiano Sulla Strada Del Vino</option>
+                         <option onclick="centrer_sur(45.9178263,10.8868655)">Arco</option>
+                         <option onclick="centrer_sur(46.6459990,11.2248461)">Avelengo</option>
+                         <option onclick="centrer_sur(45.7348703,10.9382962)">Avio</option>
+                         <option onclick="centrer_sur(46.6110964,11.8945367)">Badia</option>
+                         <option onclick="centrer_sur(46.6031216,11.5203189)">Barbiano</option>
+                         <option onclick="centrer_sur(46.132492,11.246988)">Baselga di Pinè</option>
+                         <option onclick="centrer_sur(46.1700694,11.3017353)">Bedollo</option>
+                         <option onclick="centrer_sur(45.9446304,10.6327251)">Bersone</option>
+                         <option onclick="centrer_sur(45.9440401,11.1081688)">Besenello</option>
+                         <option onclick="centrer_sur(46.0825185,11.5572037)">Bieno</option>
+                         <option onclick="centrer_sur(46.0252355,10.837429)">Bleggio Superiore</option>
+                         <option onclick="centrer_sur(46.12,10.7600185)">Bocenago</option>
+                         <option onclick="centrer_sur(46.0336111,10.7389074)">Bolbeno</option>
+                         <option onclick="centrer_sur(46.4951665,11.3541034)">Bolzano</option>
+                         <option onclick="centrer_sur(46.0012592,10.6931481)">Bondo</option>
+                         <option onclick="centrer_sur(45.8057585,10.5512783)">Bondone</option>
+                         <option onclick="centrer_sur(46.0523518,11.4554814)">Borgo Valsugana</option>
+                         <option onclick="centrer_sur(46.002106,11.225555)">Bosentino</option>
+                         <option onclick="centrer_sur(46.7177959,12.1134198)">Braies</option>
+                         <option onclick="centrer_sur(46.0087777,10.7003148)">Breguzzo</option>
+                         <option onclick="centrer_sur(47.0032191,11.5052116)">Brennero</option>
+                         <option onclick="centrer_sur(45.82,10.9562777)">Brentonico</option>
+                         <option onclick="centrer_sur(46.4108131,10.9683714)">Bresimo</option>
+                         <option onclick="centrer_sur(46.7126050,11.6577450)">Bressanone</option>
+                         <option onclick="centrer_sur(46.4318888,11.1076666)">Brez</option>
+                         <option onclick="centrer_sur(45.8943393,10.5904933)">Brione</option>
+                         <option onclick="centrer_sur(46.4032962,11.3206481)">Bronzolo</option>
+                         <option onclick="centrer_sur(46.7976004,11.9367814)">Brunico</option>
+                         <option onclick="centrer_sur(46.130839,10.759735)">Caderzone</option>
+                         <option onclick="centrer_sur(46.3940304,11.0428664)">Cagnò</option>
+                         <option onclick="centrer_sur(46.6995183,11.1725146)">Caines</option>
+                         <option onclick="centrer_sur(46.045459,10.983256)">Calavino</option>
+                         <option onclick="centrer_sur(46.0056481,11.2448703)">Calceranica Al Lago</option>
+                         <option onclick="centrer_sur(46.3947429,11.2543808)">Caldaro Sulla Strada Del Vino</option>
+                         <option onclick="centrer_sur(46.3651147,10.9424433)">Caldes</option>
+                         <option onclick="centrer_sur(45.9959444,11.2657962)">Caldonazzo</option>
+                         <option onclick="centrer_sur(45.9342461,11.0943211)">Calliano</option>
+                         <option onclick="centrer_sur(46.4773703,11.7431481)">Campitello Di Fassa</option>
+                         <option onclick="centrer_sur(46.8715623,11.4841965)">Campo Di Trens</option>
+                         <option onclick="centrer_sur(46.9150700,11.9525500)">Campo Tures</option>
+                         <option onclick="centrer_sur(46.2589259,11.0342222)">Campodenno</option>
+                         <option onclick="centrer_sur(46.1560359,11.7335158)">Canal San Bovo</option>
+                         <option onclick="centrer_sur(46.4767349,11.7724583)">Canazei</option>
+                         <option onclick="centrer_sur(46.2625039,11.3387427)">Capriana</option>
+                         <option onclick="centrer_sur(46.2925185,11.4409629)">Carano</option>
+                         <option onclick="centrer_sur(46.1698703,10.7600185)">Carisolo</option>
+                         <option onclick="centrer_sur(46.070741,11.492748)">Carzano</option>
+                         <option onclick="centrer_sur(45.916149,10.6025931)">Castel Condino</option>
+                         <option onclick="centrer_sur(46.6283615,10.9010845)">Castelbello-Ciardes</option>
+                         <option onclick="centrer_sur(46.456628,11.118391)">Castelfondo</option>
+                         <option onclick="centrer_sur(46.0645555,11.6334444)">Castello Tesino</option>
+                         <option onclick="centrer_sur(46.281883,11.435125)">Castello-Molina Di Fiemme</option>
+                         <option onclick="centrer_sur(46.0526797,11.491668)">Castelnuovo</option>
+                         <option onclick="centrer_sur(46.5675000,11.5620370)">Castelrotto</option>
+                         <option onclick="centrer_sur(46.2901777,11.4605315)">Cavalese</option>
+                         <option onclick="centrer_sur(46.4093888,11.1392407)">Cavareno</option>
+                         <option onclick="centrer_sur(46.1862777,11.0325)">Cavedago</option>
+                         <option onclick="centrer_sur(45.9962777,10.9747037)">Cavedine</option>
+                         <option onclick="centrer_sur(46.3681798,10.9585956)">Cavizzana</option>
+                         <option onclick="centrer_sur(46.1747037,11.2218888)">Cembra</option>
+                         <option onclick="centrer_sur(45.9703333,11.2334444)">Centa San Nicolò</option>
+                         <option onclick="centrer_sur(46.6356481,11.1476666)">Cermes</option>
+                         <option onclick="centrer_sur(46.8075280,11.8375510)">Chienes</option>
+                         <option onclick="centrer_sur(46.6396290,11.5648150)">Chiusa</option>
+                         <option onclick="centrer_sur(45.9128026,10.6145583)">Cimego</option>
+                         <option onclick="centrer_sur(45.9803333,11.0706481)">Cimone</option>
+                         <option onclick="centrer_sur(46.0586111,11.6143888)">Cinte Tesino</option>
+                         <option onclick="centrer_sur(46.3997754,11.0044543)">Cis</option>
+                         <option onclick="centrer_sur(46.091415,11.184616)">Civezzano</option>
+                         <option onclick="centrer_sur(46.3661111,11.034074)">Cles</option>
+                         <option onclick="centrer_sur(46.4198518,11.0879814)">Cloz</option>
+                         <option onclick="centrer_sur(46.0376,10.8664)">Comano Terme</option>
+                         <option onclick="centrer_sur(46.3226174,10.8406654)">Commezzadura</option>
+                         <option onclick="centrer_sur(45.8906296,10.6014259)">Condino</option>
+                         <option onclick="centrer_sur(46.3517222,11.0898518)">Coredo</option>
+                         <option onclick="centrer_sur(46.4938266,11.3932545)">Cornedo all' Isarco</option>
+                         <option onclick="centrer_sur(46.3762076,11.2521805)">Cortaccia Sulla Strada Del Vino</option>
+                         <option onclick="centrer_sur(46.2702944,11.2232203)">Cortina Sulla Strada Del Vino</option>
+                         <option onclick="centrer_sur(46.5520147,11.8741541)">Corvara In Badia</option>
+                         <option onclick="centrer_sur(46.3462777,10.904537)">Croviana</option>
+                         <option onclick="centrer_sur(46.2873518,11.0356296)">Cunevo</option>
+                         <option onclick="centrer_sur(46.8084204,10.5421650)">Curon Venosta</option>
+                         <option onclick="centrer_sur(46.3025,11.4501666)">Daiano</option>
+                         <option onclick="centrer_sur(46.4051961,11.0939437)">Dambel</option>
+                         <option onclick="centrer_sur(45.9471984,10.6186739)">Daone</option>
+                         <option onclick="centrer_sur(46.075311,10.7185)">Darè</option>
+                         <option onclick="centrer_sur(46.2736385,11.0487804)">Denno</option>
+                         <option onclick="centrer_sur(46.3272037,10.8718888)">Dimaro</option>
+                         <option onclick="centrer_sur(46.7354510,12.2224970)">Dobbiaco</option>
+                         <option onclick="centrer_sur(46.3899062,11.1369598)">Don</option>
+                         <option onclick="centrer_sur(46.0737241,10.8975622)">Dorsino</option>
+                         <option onclick="centrer_sur(45.9700441,10.9438481)">Drena</option>
+                         <option onclick="centrer_sur(45.9623686,10.9123754)">Dro</option>
+                         <option onclick="centrer_sur(46.3135507,11.2728204)">Egna</option>
+                         <option onclick="centrer_sur(46.192279,11.1618842)">Faedo</option>
+                         <option onclick="centrer_sur(46.1753351,11.0685397)">Fai Della Paganella</option>
+                         <option onclick="centrer_sur(46.8153148,11.8848703)">Falzes</option>
+                         <option onclick="centrer_sur(46.1823703,11.2384629)">Faver</option>
+                         <option onclick="centrer_sur(46.004537,10.844074)">Fiavè</option>
+                         <option onclick="centrer_sur(46.5176666,11.5023518)">Fiè allo Sciliar</option>
+                         <option onclick="centrer_sur(46.1772037,11.8298518)">Fiera Di Primiero</option>
+                         <option onclick="centrer_sur(46.1123703,11.319537)">Fierozzo</option>
+                         <option onclick="centrer_sur(46.3003364,11.0299117)">Flavon</option>
+                         <option onclick="centrer_sur(45.9162777,11.1717222)">Folgaria</option>
+                         <option onclick="centrer_sur(46.4392407,11.1386111)">Fondo</option>
+                         <option onclick="centrer_sur(46.118029,11.2075165)">Fornace</option>
+                         <option onclick="centrer_sur(46.7884208,11.6106574)">Fortezza</option>
+                         <option onclick="centrer_sur(46.0909629,11.2982962)">Frassilongo</option>
+                         <option onclick="centrer_sur(46.6403946,11.6865436)">Funes</option>
+                         <option onclick="centrer_sur(46.8315210,11.9457007)">Gais</option>
+                         <option onclick="centrer_sur(46.5857962,11.2047037)">Gargazzone</option>
+                         <option onclick="centrer_sur(46.004074,11.0884444)">Garniga Terme</option>
+                         <option onclick="centrer_sur(46.1567523,11.1531353)">Giovo</option>
+                         <option onclick="centrer_sur(46.148985,10.76874)">Giustino</option>
+                         <option onclick="centrer_sur(46.6709660,10.5544169)">Glorenza</option>
+                         <option onclick="centrer_sur(46.2293435,11.2980644)">Grauno</option>
+                         <option onclick="centrer_sur(46.0164259,11.6381209)">Grigno</option>
+                         <option onclick="centrer_sur(46.2217222,11.2953148)">Grumes</option>
+                         <option onclick="centrer_sur(46.150374,11.794326)">Imer</option>
+                         <option onclick="centrer_sur(45.8886111,11.0103333)">Isera</option>
+                         <option onclick="centrer_sur(46.0577515,11.5316578)">Ivano-Fracena</option>
+                         <option onclick="centrer_sur(46.6569971,11.9253532)">La Valle</option>
+                         <option onclick="centrer_sur(46.6178148,10.8575185)">Laces</option>
+                         <option onclick="centrer_sur(46.6821907,11.1268038)">Lagundo</option>
+                         <option onclick="centrer_sur(46.6096625,11.5668514)">Laion</option>
+                         <option onclick="centrer_sur(46.4268502,11.3377286)">Laives</option>
+                         <option onclick="centrer_sur(46.6134629,11.1570555)">Lana</option>
+                         <option onclick="centrer_sur(45.9712777,10.6623703)">Lardaro</option>
+                         <option onclick="centrer_sur(46.6172712,10.6988206)">Lasa</option>
+                         <option onclick="centrer_sur(46.0261111,10.9842407)">Lasino</option>
+                         <option onclick="centrer_sur(46.4553333,11.0628148)">Lauregno</option>
+                         <option onclick="centrer_sur(45.9379179,11.275742)">Lavarone</option>
+                         <option onclick="centrer_sur(46.1404814,11.1139074)">Lavis</option>
+                         <option onclick="centrer_sur(45.8909,10.7312)">Ledro</option>
+                         <option onclick="centrer_sur(46.011112,11.3026129)">Levico Terme</option>
+                         <option onclick="centrer_sur(46.161574,11.1887592)">Lisignago</option>
+                         <option onclick="centrer_sur(46.4057395,11.0190905)">Livo</option>
+                         <option onclick="centrer_sur(46.1451666,11.2206296)">Lona-Lases</option>
+                         <option onclick="centrer_sur(45.9236111,11.3239074)">Luserna</option>
+                         <option onclick="centrer_sur(46.7381309,11.6878765)">Luson</option>
+                         <option onclick="centrer_sur(46.2856940,11.2120218)">Magrè sulla strada del Vino</option>
+                         <option onclick="centrer_sur(46.3525,10.9139074)">Malè</option>
+                         <option onclick="centrer_sur(46.6853333,10.5498703)">Malles Venosta</option>
+                         <option onclick="centrer_sur(46.437037,11.1473518)">Malosco</option>
+                         <option onclick="centrer_sur(46.6990330,11.9342604)">Marebbe</option>
+                         <option onclick="centrer_sur(46.6564259,11.1439074)">Marlengo</option>
+                         <option onclick="centrer_sur(46.5658761,10.7824609)">Martello</option>
+                         <option onclick="centrer_sur(46.1422213,10.7734308)">Massimeno</option>
+                         <option onclick="centrer_sur(46.4584656,11.7010789)">Mazzin</option>
+                         <option onclick="centrer_sur(46.6078505,11.2676028)">Meltina</option>
+                         <option onclick="centrer_sur(46.6691035,11.1639856)">Merano</option>
+                         <option onclick="centrer_sur(46.3176666,10.8012777)">Mezzana</option>
+                         <option onclick="centrer_sur(46.1556296,11.809074)">Mezzano</option>
+                         <option onclick="centrer_sur(46.2143888,11.1198703)">Mezzocorona</option>
+                         <option onclick="centrer_sur(46.2100185,11.0978148)">Mezzolombardo</option>
+                         <option onclick="centrer_sur(46.3782519,11.6633985)">Moena</option>
+                         <option onclick="centrer_sur(46.1431481,10.9648518)">Molveno</option>
+                         <option onclick="centrer_sur(46.3362267,10.8898971)">Monclassico</option>
+                         <option onclick="centrer_sur(46.7665760,12.1153940)">Monguelfo</option>
+                         <option onclick="centrer_sur(46.3314231,11.3019502)">Montagna</option>
+                         <option onclick="centrer_sur(46.0595555,10.7523518)">Montagne</option>
+                         <option onclick="centrer_sur(45.852814,10.976181)">Mori</option>
+                         <option onclick="centrer_sur(46.8326339,11.1664255)">Moso In Passiria</option>
+                         <option onclick="centrer_sur(45.8739259,10.8745555)">Nago-Torbole</option>
+                         <option onclick="centrer_sur(46.5437610,11.2076990)">Nalles</option>
+                         <option onclick="centrer_sur(46.3152335,11.0480419)">Nanno</option>
+                         <option onclick="centrer_sur(46.6540600,11.0078300)">Naturno</option>
+                         <option onclick="centrer_sur(46.1668144,11.1060849)">Nave San Rocco</option>
+                         <option onclick="centrer_sur(46.7698703,11.6667407)">Naz-Sciaves</option>
+                         <option onclick="centrer_sur(45.9136983,11.0243907)">Nogaredo</option>
+                         <option onclick="centrer_sur(45.929537,11.0729814)">Nomi</option>
+                         <option onclick="centrer_sur(46.4655490,11.5231100)">Nova Levante</option>
+                         <option onclick="centrer_sur(46.4139259,11.4315740)">Nova Ponente</option>
+                         <option onclick="centrer_sur(46.0229814,11.3668888)">Novaledo</option>
+                         <option onclick="centrer_sur(46.3457666,11.2963371)">Ora</option>
+                         <option onclick="centrer_sur(46.5760000,11.6685500)">Ortisei</option>
+                         <option onclick="centrer_sur(46.044537,11.5537777)">Ospedaletto</option>
+                         <option onclick="centrer_sur(46.3075185,10.7387777)">Ossana</option>
+                         <option onclick="centrer_sur(46.0631481,10.9900185)">Padergnone</option>
+                         <option onclick="centrer_sur(46.129721,11.3523721)">Pal</option>ù del Fersina
+                         <option onclick="centrer_sur(46.2867407,11.5436111)">Panchià</option>
+                         <option onclick="centrer_sur(46.6851666,11.0745555)">Parcines</option>
+                         <option onclick="centrer_sur(46.362791,10.6734039)">Peio</option>
+                         <option onclick="centrer_sur(46.3109629,10.7609444)">Pellizzano</option>
+                         <option onclick="centrer_sur(46.0889245,10.7237619)">Pelugo</option>
+                         <option onclick="centrer_sur(46.7944891,11.9826886)">Perca</option>
+                         <option onclick="centrer_sur(46.061699,11.2371232)">Pergine Valsugana</option>
+                         <option onclick="centrer_sur(45.9429344,10.6409333)">Pieve Di Bono</option>
+                         <option onclick="centrer_sur(46.0692407,11.6114259)">Pieve Tesino</option>
+                         <option onclick="centrer_sur(46.1600258,10.7654211)">Pinzolo</option>
+                         <option onclick="centrer_sur(46.6562180,11.0415320)">Plaus</option>
+                         <option onclick="centrer_sur(45.929074,11.0442407)">Pomarolo</option>
+                         <option onclick="centrer_sur(46.5981481,11.5320555)">Ponte Gardena</option>
+                         <option onclick="centrer_sur(46.6058996,11.1942178)">Postal</option>
+                         <option onclick="centrer_sur(46.4298518,11.6918888)">Pozza Di Fassa</option>
+                         <option onclick="centrer_sur(45.9500517,10.6373049)">Praso</option>
+                         <option onclick="centrer_sur(46.6189570,10.5926753)">Prato Allo Stelvio</option>
+                         <option onclick="centrer_sur(46.3098703,11.6007962)">Predazzo</option>
+                         <option onclick="centrer_sur(47.0529210,12.1201300)">Predoi</option>
+                         <option onclick="centrer_sur(46.0468795,10.7585358)">Preore</option>
+                         <option onclick="centrer_sur(45.9333456,10.6317016)">Prezzo</option>
+                         <option onclick="centrer_sur(46.4760514,11.0191665)">Proves</option>
+                         <option onclick="centrer_sur(46.4012654,10.8466648)">Rabbi</option>
+                         <option onclick="centrer_sur(46.8670554,11.2850171)">Racines</option>
+                         <option onclick="centrer_sur(46.054537,10.7784629)">Ragoli</option>
+                         <option onclick="centrer_sur(46.7795555,12.0484629)">Rasun Anterselva</option>
+                         <option onclick="centrer_sur(46.5425185,11.4584629)">Renon</option>
+                         <option onclick="centrer_sur(46.3928333,11.0607962)">Revò</option>
+                         <option onclick="centrer_sur(46.7047037,11.1828333)">Rifiano</option>
+                         <option onclick="centrer_sur(46.7987592,11.6692407)">Rio Di Pusteria</option>
+                         <option onclick="centrer_sur(45.888062,10.844509)">Riva Del Garda</option>
+                         <option onclick="centrer_sur(46.7802334,11.6898588)">Rodengo</option>
+                         <option onclick="centrer_sur(46.3981296,11.0673703)">Romallo</option>
+                         <option onclick="centrer_sur(46.3957962,11.119537)">Romeno</option>
+                         <option onclick="centrer_sur(46.0508647,11.4096985)">Roncegno</option>
+                         <option onclick="centrer_sur(46.0693888,11.4362592)">Ronchi Valsugana</option>
+                         <option onclick="centrer_sur(45.9837777,10.6692222)">Roncone</option>
+                         <option onclick="centrer_sur(45.8906481,10.9512777)">Ronzo-Chienis</option>
+                         <option onclick="centrer_sur(46.4236111,11.1514259)">Ronzone</option>
+                         <option onclick="centrer_sur(46.2494962,11.1715554)">Roverè della Luna</option>
+                         <option onclick="centrer_sur(45.8906481,11.0398703)">Rovereto</option>
+                         <option onclick="centrer_sur(46.4155169,11.1789073)">Ruffrè</option>
+                         <option onclick="centrer_sur(46.4418918,11.0186244)">Rumo</option>
+                         <option onclick="centrer_sur(46.1947389,11.9428105)">Sagron Mis</option>
+                         <option onclick="centrer_sur(46.2401666,11.2131296)">Salorno</option>
+                         <option onclick="centrer_sur(45.4493888,7.8417407)">Samone</option>
+                         <option onclick="centrer_sur(46.7339074,12.2800185)">San Candido</option>
+                         <option onclick="centrer_sur(46.5367222,11.3306296)">San Genesio Atesino</option>
+                         <option onclick="centrer_sur(46.8137592,11.2468888)">San Leonardo In Passiria</option>
+                         <option onclick="centrer_sur(46.7832344,11.9024463)">San Lorenzo Di Sebato</option>
+                         <option onclick="centrer_sur(46.0770605,10.9078501)">San Lorenzo In Banale</option>
+                         <option onclick="centrer_sur(46.6825185,11.8992407)">San Martino In Badia</option>
+                         <option onclick="centrer_sur(46.7848518,11.2284629)">San Martino In Passiria</option>
+                         <option onclick="centrer_sur(46.1939259,11.1347037)">San Michele all' Adige</option>
+                         <option onclick="centrer_sur(46.5861437,11.0865725)">San Pancrazio</option>
+                         <option onclick="centrer_sur(46.1098703,11.3034444)">Sant' Orsola Terme</option>
+                         <option onclick="centrer_sur(46.5589285,11.7283024)">Santa Cristina Valgardena</option>
+                         <option onclick="centrer_sur(46.3678333,11.0776666)">Sanzeno</option>
+                         <option onclick="centrer_sur(46.6426550,11.3580047)">Sarentino</option>
+                         <option onclick="centrer_sur(46.4215699,11.1428435)">Sarnonico</option>
+                         <option onclick="centrer_sur(46.6911111,11.1873518)">Scena</option>
+                         <option onclick="centrer_sur(46.0654814,11.5067222)">Scurelle</option>
+                         <option onclick="centrer_sur(46.1876492,11.2573874)">Segonzano</option>
+                         <option onclick="centrer_sur(46.8998795,11.8451885)">Selva Dei Molini</option>
+                         <option onclick="centrer_sur(46.5564914,11.7547550)">Selva Di Val Gardena</option>
+                         <option onclick="centrer_sur(46.7136806,10.8874002)">Senales</option>
+                         <option onclick="centrer_sur(46.4918545,11.1330852)">Senale-San Felice</option>
+                         <option onclick="centrer_sur(46.7026647,12.3503168)">Sesto</option>
+                         <option onclick="centrer_sur(46.3406481,11.1248518)">Sfruz</option>
+                         <option onclick="centrer_sur(46.6293888,10.7723703)">Silandro</option>
+                         <option onclick="centrer_sur(46.1878768,11.8319539)">Siror</option>
+                         <option onclick="centrer_sur(46.6644866,10.5854671)">Sluderno</option>
+                         <option onclick="centrer_sur(46.344074,11.1109629)">Smarano</option>
+                         <option onclick="centrer_sur(46.3956481,11.6673703)">Soraga</option>
+                         <option onclick="centrer_sur(46.2228165,11.3155663)">Sover</option>
+                         <option onclick="centrer_sur(46.0693077,11.5090772)">Spera</option>
+                         <option onclick="centrer_sur(46.10314,10.736538)">Spiazzo</option>
+                         <option onclick="centrer_sur(46.2195158,11.0498041)">Spormaggiore</option>
+                         <option onclick="centrer_sur(46.2378362,11.0312489)">Sporminore</option>
+                         <option onclick="centrer_sur(46.5983986,10.5472142)">Stelvio</option>
+                         <option onclick="centrer_sur(46.0511536,10.854534)">Stenico</option>
+                         <option onclick="centrer_sur(45.8509444,10.5773703)">Storo</option>
+                         <option onclick="centrer_sur(46.1212592,10.7520555)">Strembo</option>
+                         <option onclick="centrer_sur(46.0675663,11.5222377)">Strigno</option>
+                         <option onclick="centrer_sur(46.321706,11.071111)">Taio</option>
+                         <option onclick="centrer_sur(46.336431,11.051299)">Tassullo</option>
+                         <option onclick="centrer_sur(46.0714887,11.4812656)">Telve</option>
+                         <option onclick="centrer_sur(46.0723703,11.4728148)">Telve Di Sopra</option>
+                         <option onclick="centrer_sur(46.0167407,11.2653148)">Tenna</option>
+                         <option onclick="centrer_sur(45.9203206,10.832539)">Tenno</option>
+                         <option onclick="centrer_sur(46.8314074,11.7811111)">Terento</option>
+                         <option onclick="centrer_sur(46.098445,11.0468822)">Terlago</option>
+                         <option onclick="centrer_sur(46.5288317,11.2496420)">Terlano</option>
+                         <option onclick="centrer_sur(46.3426433,11.2430463)">Termeno Sulla Strada Del Vino</option>
+                         <option onclick="centrer_sur(45.8788086,11.1546265)">Terragnolo</option>
+                         <option onclick="centrer_sur(46.3109629,11.0242407)">Terres</option>
+                         <option onclick="centrer_sur(46.362037,10.9270555)">Terzolas</option>
+                         <option onclick="centrer_sur(46.2914259,11.5131481)">Tesero</option>
+                         <option onclick="centrer_sur(46.5630429,11.1714454)">Tesimo</option>
+                         <option onclick="centrer_sur(46.0370555,10.7275185)">Tione Di Trento</option>
+                         <option onclick="centrer_sur(46.4694631,11.5254524)">Tires</option>
+                         <option onclick="centrer_sur(46.6828628,11.1616655)">Tirolo</option>
+                         <option onclick="centrer_sur(46.2650188,11.0866785)">Ton</option>
+                         <option onclick="centrer_sur(46.182037,11.8404814)">Tonadico</option>
+                         <option onclick="centrer_sur(46.0753347,11.450957)">Torcegno</option>
+                         <option onclick="centrer_sur(45.8698676,11.0745543)">Trambileno</option>
+                         <option onclick="centrer_sur(46.1742251,11.8334249)">Transacqua</option>
+                         <option onclick="centrer_sur(46.0702531,11.1216386)">Trento</option>
+                         <option onclick="centrer_sur(46.324074,11.0979814)">Tres</option>
+                         <option onclick="centrer_sur(46.3265420,11.3492200)">Trodena</option>
+                         <option onclick="centrer_sur(46.6454481,10.4639903)">Tubre</option>
+                         <option onclick="centrer_sur(46.3298518,11.024074)">Tuenno</option>
+                         <option onclick="centrer_sur(46.5481909,11.0037147)">Ultimo</option>
+                         <option onclick="centrer_sur(46.4145370,11.3061111)">Vadena</option>
+                         <option onclick="centrer_sur(46.8997999,11.4603215)">Val Di Vizze</option>
+                         <option onclick="centrer_sur(46.2074503,11.2667469)">Valda</option>
+                         <option onclick="centrer_sur(46.7615688,12.0308862)">Valdaora</option>
+                         <option onclick="centrer_sur(46.2506296,11.3442407)">Valfloriana</option>
+                         <option onclick="centrer_sur(45.7825989,11.1172517)">Vallarsa</option>
+                         <option onclick="centrer_sur(46.9970633,11.9804563)">Valle Aurina</option>
+                         <option onclick="centrer_sur(46.7684733,12.1805875)">Valle Di Casies</option>
+                         <option onclick="centrer_sur(46.8173749,11.7232496)">Vandoies</option>
+                         <option onclick="centrer_sur(46.3076666,11.4593888)">Varena</option>
+                         <option onclick="centrer_sur(46.7389404,11.6397428)">Varna</option>
+                         <option onclick="centrer_sur(45.9956481,11.2179814)">Vattaro</option>
+                         <option onclick="centrer_sur(46.6686958,11.5964144)">Velturno</option>
+                         <option onclick="centrer_sur(46.6051025,11.2265969)">Verano</option>
+                         <option onclick="centrer_sur(46.298463,10.692773)">Vermiglio</option>
+                         <option onclick="centrer_sur(46.3109991,11.1190223)">Vervò</option>
+                         <option onclick="centrer_sur(46.08,11.0006481)">Vezzano</option>
+                         <option onclick="centrer_sur(46.0462403,11.2765692)">Vignola-Falesina</option>
+                         <option onclick="centrer_sur(46.419537,11.6745555)">Vigo Di Fassa</option>
+                         <option onclick="centrer_sur(46.0809629,10.7231481)">Vigo Rendena</option>
+                         <option onclick="centrer_sur(46.006574,11.1998703)">Vigolo Vattaro</option>
+                         <option onclick="centrer_sur(46.053559,11.5279443)">Villa Agnedo</option>
+                         <option onclick="centrer_sur(45.9172037,11.0317407)">Villa Lagarina</option>
+                         <option onclick="centrer_sur(46.0626666,10.7122037)">Villa Rendena</option>
+                         <option onclick="centrer_sur(46.7380720,12.1727230)">Villabassa</option>
+                         <option onclick="centrer_sur(46.6313707,11.5393386)">Villandro</option>
+                         <option onclick="centrer_sur(46.8991873,11.4311707)">Vipiteno</option>
+                         <option onclick="centrer_sur(45.9185267,11.0633421)">Volano</option>
+                         <option onclick="centrer_sur(46.1526666,11.0973703)">Zambana</option>
+                         <option onclick="centrer_sur(46.2875185,11.567037)">Ziano Di Fiemme</option>
+                         <option onclick="centrer_sur(46.0353333,10.7522037)">Zuclo</option>
+                    </select>
+                </div>-->
+                         <!--<div class="dropdown">
+                         <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Cartes
+                         <span class="caret"></span></button>
+                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                   <li role="presentation"><a role="menuitem" tabindex="-1" href="Altitude.html">Altitudes</a></li>
+                                   <li role="presentation"><a role="menuitem" tabindex="-1" href="Densités.html">Densités de population</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="Nb_Allemands.html">Nombre de germanphones</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="Nb_Italiens.html">Nombre d'italophones</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="Nb_Ladins.html">Nombre de ladinophones</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="Italiens.html">Taux d'italophones</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="Ladins.html">Taux de ladinophones</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="Allemands.html">Taux de germanophones</a></li>
+                         </ul>
+                         </div>
+                         <input id="slide" type="range" min="0" max="1" step="0.1" value="1" onchange="updateOpacity(this.value)"> Barre coulissante-->
+                         <!--<section>Permet de créer une barre de recherche avec proposition
+                              <label>
+                                   Pick a programming language:<br />
+                                   <input id= "barre" placeholder = "rechercher des communes" autofocus class="awesomplete" data-list="Ala, Albiano, Aldeno, Aldino, Amblar, Andalo, Andriano, Anterivo, Appiano Sulla Strada Del Vino, Arco, Avelengo, Avio, Badia, Barbiano, Baselga di Pinè, Bedollo, Bersone, Besenello, Bieno, Bleggio Superiore, Bocenago, Bolbeno,  Bolzano, Bondo, Bondone, Borgo Valsugana, Bosentino, Braies, Breguzzo, Brennero, Brentonico, Bresimo, Bressanone, Brez, Brione, Bronzolo, Brunico, Caderzone, Cagnò, Caines, Calavino, Calceranica Al Lago, Caldaro Sulla Strada Del Vino, Caldes, Caldonazzo, Calliano, Campitello Di Fassa, Campo Di Trens, Campo Tures, Campodenno, Canal San Bovo, Canazei, Capriana, Carano, Carisolo, Carzano, Castel Condino, Castelbello-Ciardes, Castelfondo, Castello Tesino, Castello-Molina Di Fiemme, Castelnuovo, Castelrotto, Cavalese, Cavareno, Cavedago, Cavedine, Cavizzana, Cembra, Centa San Nicolò, Cermes, Chienes, Chiusa, Cimego, Cimone, Cinte Tesino, Cis, Civezzano, Cles, Cloz, Comano Terme, Commezzadura, Condino, Coredo, Cornedo all''Isarco, Cortaccia Sulla Strada Del Vino, Cortina Sulla Strada Del Vino, Corvara In Badia,      Croviana, Cunevo, Curon Venosta, Daiano, Dambel, Daone, Darè, Denno, Dimaro, Dobbiaco, Don, Dorsino, Drena, Dro, Egna, Faedo, Fai Della Paganella, Falzes, Faver, Fiavè, Fiè allo Sciliar, Fiera Di Primiero, Fierozzo, Flavon, Folgaria, Fondo, Fornace, Fortezza, Frassilongo, Funes, Gais, Gargazzone, Garniga Terme, Giovo, Giustino, Glorenza, Grauno, Grigno, Grumes, Imer, Isera, Ivano-Fracena,La Valle, Laces, Lagundo, Laion, Laives, Lana, Lardaro, Lasa, Lasino, Lauregno, Lavarone, Lavis, Ledro, Levico Terme, Lisignago, Livo, Lona-Lases, Luserna, Luson, Magrè sulla strada del Vino, Malè, Malles Venosta, Malosco, Marebbe, Marlengo, Martello, Massimeno, Mazzin, Meltina, Merano, Mezzana, Mezzano, Mezzocorona, Mezzolombardo, Moena, Molveno, Monclassico, Monguelfo, Montagna, Montagne, Mori, Moso In Passiria, Nago-Torbole, Nalles, Nanno, Naturno, Nave San Rocco, Naz-Sciaves, Nogaredo, Nomi, Nova Levante, Nova Ponente, Novaledo, Ora, Ortisei, Ospedaletto, Ossana, Padergnone, Palù del Fersina, Panchià, Parcines, Peio, Pellizzano, Pelugo, Perca, Pergine Valsugana, Pieve Di Bono, Pieve Tesino, Pinzolo, Plaus, Pomarolo, Ponte Gardena, Postal, Pozza Di Fassa, Praso, Prato Allo Stelvio, Predazzo, Predoi, Preore, Prezzo, Proves, Rabbi, Racines, Ragoli, Rasun Anterselva, Renon, Revò, Rifiano, Rio Di Pusteria, Riva Del Garda, Rodengo, Romallo, Romeno, Roncegno, Ronchi Valsugana, Roncone, Ronzo-Chienis, Ronzone, Roverè della Luna, Rovereto, Ruffrè, Rumo, Sagron Mis, Salorno, Samone, San Candido, San Genesio Atesino, San Leonardo In Passiria, San Lorenzo Di Sebato, San Lorenzo In Banale, San Martino In Badia, San Martino In Passiria, San Michele all''Adige, San Pancrazio, Sant''Orsola Terme, Santa Cristina Valgardena, Sanzeno, Sarentino, Sarnonico, Scena, Scurelle, Segonzano, Selva Dei Molini, Selva Di Val Gardena, Senales, Senale-San Felice, Sesto, Sfruz, Silandro, Siror, Sluderno, Smarano, Soraga, Sover, Spera, Spiazzo, Spormaggiore, Sporminore, Stelvio, Stenico, Storo, Strembo, Strigno, Taio, Tassullo, Telve, Telve Di Sopra, Tenna, Tenno, Terento, Terlago, Terlano, Termeno Sulla Strada Del Vino, Terragnolo, Terres, Terzolas, Tesero, Tesimo, Tione Di Trento, Tires, Tirolo, Ton, Tonadico, Torcegno, Trambileno, Transacqua, Trento, Tres, Trodena, Tubre, Tuenno, Ultimo, Vadena, Val Di Vizze, Valda, Valdaora, Valfloriana, Vallarsa, Valle Aurina, Valle Di Casies, Vandoies, Varena, Varna, Vattaro, Velturno, Verano, Vermiglio, Vervò, Vezzano, Vignola-Falesina, Vigo Di Fassa, Vigo Rendena, Vigolo Vattaro, Villa Agnedo, Villa Lagarina, Villa Rendena, Villabassa, Villandro, Vipiteno, Volano, Zambana, Ziano Di Fiemme, Zuclo" />
+                              </label>
+                         </section>
+                         <input type="text" id="query" class="text-field valid" autocomplete="off" placeholder="Rechercher des communes">-->
+                         <div class="col-md-2 col-lg-2" id="ternary"></div>
+                    </div>
+            </section>
+          </div>
+     </div>
+
+<script>
+
+//DIAGRAMME EN TRIANGLE D3
+
+// gère l'espace du svg
+    var plotSet = {
+     margins: {
+    top: 30,
+    bottom: 70,
+    left: 50,
+    right: 50
+  },
+  side: 500
+};
+plotSet.plotHeight = Math.sqrt(3) / 2 * plotSet.side;
+plotSet.height = plotSet.margins.top + plotSet.margins.bottom + plotSet.plotHeight;
+plotSet.width = plotSet.margins.left + plotSet.margins.right + plotSet.side;
+
+var corners = [
+  [plotSet.margins.left, plotSet.plotHeight + plotSet.margins.top], // a
+  [plotSet.margins.left + plotSet.side / 2, plotSet.margins.top], //b 
+  [plotSet.margins.left + plotSet.side, plotSet.plotHeight + plotSet.margins.top] //c
+];
+
+// required functions
+function lineAttributes(p1, p2) {
+  return {
+    x1: p1[0],
+    y1: p1[1],
+    x2: p2[0],
+    y2: p2[1]
+  };
+};
+
+function coord(tripleIn) {
+  var a = tripleIn[0],
+    b = tripleIn[1],
+    c = tripleIn[2];
+  var sum, pos = [0, 0];
+  sum = a + b + c;
+  if (sum !== 0) {
+    a /= sum;
+    b /= sum;
+    c /= sum;
+    pos[0] = corners[0][0] * a + corners[1][0] * b + corners[2][0] * c;
+    pos[1] = corners[0][1] * a + corners[1][1] * b + corners[2][1] * c;
+  }
+  return pos;
+}
+
+function reverse_coord(doubleIn) {
+     var x = doubleIn[0], y = doubleIn[1];
+  var a = 200*y/3;
+  var b = 100*x-a/2;
+  var c = 100-(a+b);
+  var tripleOut = [a,b,c];
+  a = tripleIn[0],
+    b = tripleIn[1],
+    c = tripleIn[2];
+  return tripleOut;
+}
+
+
+// start the svg
+var svg = d3.select("#ternary").append("svg");
+
+svg.attr("width", plotSet.width).attr("height", plotSet.height).on("mousemove",mousemove);
+
+// draw axes and lines
+var axes = svg.append("g").attr('class', 'axes');
+
+var minorAxisTicks = d3.range(21).map(function(i) {
+  return 0 + i * 5;
+});
+
+for (i = 0; i < 3; i++) {
+  minorAxisTicks.forEach(function(v) {
+    if (i == 0) {
+      var coord1 = coord([v, 0, 100 - v]),
+        coord2 = coord([v, 100 - v, 0]);
+    } else if (i == 1) {
+      var coord1 = coord([0, v, 100 - v]),
+        coord2 = coord([100 - v, v, 0]);
+    } else {
+      var coord1 = coord([100 - v, 0, v]),
+        coord2 = coord([0, 100 - v, v]);
+    }
+    axes.append("line").attr(lineAttributes(coord1, coord2)).classed('minor-tick', true);
+  });
+};
+
+var majorAxisTicks = d3.range(6).map(function(i) {
+  return 0 + i * 20;
+});
+
+for (i = 0; i < 3; i++) {
+  majorAxisTicks.forEach(function(v) {
+    if (i == 0) {
+      var coord1 = coord([v, 0, 100 - v]),
+        coord2 = coord([v, 100 - v, 0]);
+    } else if (i == 1) {
+      var coord1 = coord([0, v, 100 - v]),
+        coord2 = coord([100 - v, v, 0]);
+    } else {
+      var coord1 = coord([100 - v, 0, v]),
+        coord2 = coord([0, 100 - v, v]);
+    }
+    axes.append("line").attr(lineAttributes(coord1, coord2)).classed('major-tick', true);
+  });
+};
+
+// étiquette de texte. dx gère le déplacement gauche-droite, dy le déplacement haut-bas. Rotate montre l'angle de 
+// rotation.
+majorAxisTicks.forEach(function(v) {
+  var axisLabel = v;
+  axes.append("text").text(axisLabel).attr("x", coord([0, v, 100 - v])[0]).attr("y", coord([0, v, 100 - v])[1]).attr("dx", 10).attr("dy", 5).classed('tick-text', true);
+  axes.append("text").text(axisLabel).attr("x", coord([v, 100 - v, 0])[0]).attr("y", coord([v, 100 - v, 0])[1]).classed('tick-text', true).attr('text-anchor', 'end').attr('transform', 'rotate(0 ' + coord([v, 100 - v, 0])[0] + ' ' + coord([v, 100 - v, 0])[1] + ')').attr("dx", -10).attr("dy", 5);
+  axes.append("text").text(axisLabel).attr("x", coord([100 - v, 0, v])[0]).attr("y", coord([100 - v, 0, v])[1]).classed('tick-text', true).attr('text-anchor', 'end').attr('transform', 'rotate(0 ' + coord([100 - v, 0, v])[0] + ' ' + coord([100 - v, 0, v])[1] + ')').attr("dx", 5).attr("dy", 15);
+});
+
+axes.append("text")
+
+//Création des flèches et des étiquettes du diagramme triangulaire
+axes.append("line")
+   .attr("x1", 470)
+   .attr("y1", 50)
+   .attr("x2", 220)
+   .attr("y2", 470)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+axes.append("line")
+   .attr("x1", 220)
+   .attr("y1", 450)
+   .attr("x2", 220)
+   .attr("y2", 470)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+axes.append("line")
+   .attr("x1", 240)
+   .attr("y1", 460)
+   .attr("x2", 220)
+   .attr("y2", 470)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+//Nom de l'axe de gauche
+axes.append("text")      
+        .attr("x", 300 )
+        .attr("y", 300 )
+        .style("text-anchor", "middle")
+        .attr("font-family", "Neue Helvetica sans-serif")
+        .attr("transform", "translate(-300, 360) rotate(-60)")
+        .attr("font-size", "25px")
+        .attr("fill", "orangered")
+        .text("Germanophones");
+
+
+axes.append("line")
+   .attr("x1", 250)
+   .attr("y1", 510)
+   .attr("x2", 750)
+   .attr("y2", 510)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+axes.append("line")
+   .attr("x1", 730)
+   .attr("y1", 500)
+   .attr("x2", 750)
+   .attr("y2", 510)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+axes.append("line")
+   .attr("x1", 730)
+   .attr("y1", 520)
+   .attr("x2", 750)
+   .attr("y2", 510)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+//Nom de l'axe du bas
+axes.append("text")      
+        .attr("x", 500 )
+        .attr("y", 540 )
+        .style("text-anchor", "middle")
+        .attr("font-family", "Neue Helvetica sans-serif")
+        .attr("font-size", "25px")
+        .attr("transform", "translate(-200, -20) rotate(0)")
+        .attr("fill", "mediumseagreen")
+        .text("Ladinophones");
+
+axes.append("line")
+   .attr("x1", 775)
+   .attr("y1", 470)
+   .attr("x2", 535)
+   .attr("y2", 50)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+axes.append("line")
+   .attr("x1", 533)
+   .attr("y1", 70)
+   .attr("x2", 535)
+   .attr("y2", 50)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+axes.append("line")
+   .attr("x1", 555)
+   .attr("y1", 60)
+   .attr("x2", 535)
+   .attr("y2", 50)
+   .attr("transform", "translate(-200, -20) rotate(0)")
+   .attr("stroke-width", 2)
+   .attr("stroke", "black");
+
+//Nom de l'axe de droite
+axes.append("text")      
+        .attr("x", 300 )
+        .attr("y", 300 )
+        .style("text-anchor", "middle")
+        .attr("font-family", "Neue Helvetica sans-serif")
+        .attr("transform", "translate (600, -170), rotate(60)")
+        .attr("font-size", "25px")
+        .attr("fill", "mediumblue")
+        .text("Italophones");
+
+
+//Lien vers le fichier csv
+d3.csv("dat.csv", function(data) {
+  d0 = data.map(function(d){
+     return d["com"]});
+  console.log(d0);
+  d1 = data.map(function(d) { 
+     return [+d["ger"], +d["ita"], +d["lad"] ]; });
+  console.log(d1);
+
+//Coordinisation des données
+var xyData = d1.map(coord);
+
+//création des cercles pour le diagramme triangulaire
+var circles = svg.selectAll("circle").data(xyData);
+circles.enter().append("circle").classed('datapoint', true).attr("cx", function(d) {
+  return d[0];
+}).attr("cy", function(d) {
+  return d[1];
+}).attr("r", 0).transition().duration(500).attr("r", 5)
+.attr('data-cmne', function(d, i){ return d0[i]; });
+//.on("mouseover", function(d, i){ return }          
+//})
+
+
+/*$("[data-cmne]").mouseover(function() {
+    var p = $("[data-cmne]").css("fill", "yellow");
+    p.queue(function() {
+      p.css("background-color", "red");
+    });
+  });*/
+  
+/*  $('circle').on("mouseover", function() {
+    $('circle').css({ fill: "black" });
+});
+  $('circle').on("mouseout", function() {
+     $('circle').css({ fill: "green" })
+  })*/
+
+/*$( "circle" ).mouseover(function(){
+     $(this).css("fill", "blue");
+});
+
+$( "circle" ).mouseout(function(){
+     $(this).css("fill", "white");
+});*/
+
+//Création des étiquettes des infobulles
+var bulles = svg.selectAll("circle").data(data);
+bulles.enter().append("circle").classed('datapoint', true).attr("cx", function(d) {
+  return d[0];
+}).attr("cy", function(d) {
+  return d[1];
+}).attr("r", 0).transition().duration(500).attr("r", 5);   
+               
+var div = d3.select("div")
+            .append("circle")   
+            .attr("class", "tooltip")               
+            .style("opacity", 0);
+
+          
+          bulles.on("mouseover", function(d) {          
+              div.transition()       
+                 .duration(200)          
+                 .style("opacity", .9) 
+              div.html("<b>Commune: </b>" + d.com +"</br><b>Germanophones: </b>" + Math.round((d.ger*100).toFixed(2)*100)/100+"%</br><b>Italophones: </b>" + Math.round((d.ita*100).toFixed(2)*100)/100 + "%</br><b>Ladinophones: </b>"+ Math.round((d.lad*100).toFixed(2)*100)/100 + "%")
+                 .style("left", (d3.event.pageX - 210) + "px")          
+                 .style("top", (d3.event.pageY + -110) + "px");     
+            })
+                .on("mouseout", function(d) {      
+             div.transition()       
+                .duration(500)          
+                .style("opacity", 0);   
+        });
+});
+          
+ /*         var labels = d3.selectAll("#tooltip")
+               .data(data);
+                    
+          
+          labels.enter()
+               .append("#tooltip")
+               .select("circle")
+               .style("color", d3.select(this).style("fill"))
+               .text(d.brand);
+               
+          labels.transition()
+               .duration(500)
+               .select("#brand")
+               .style("color", d3.select(this).style("fill"))
+               .text(d.brand);
+
+circles.on("mouseover", function(d) {          
+             div.transition()       
+                .duration(200)          
+                .style("opacity", .9) 
+             div.html(d[0] +", " +d[1])
+                .style("left", (d3.event.pageX) + "px")          
+                .style("top", (d3.event.pageY - 28) + "px");     
+            })
+.on("mouseout", function(d) {      
+            div.transition()       
+                .duration(500)          
+                .style("opacity", 0);   
+        });
+});*/
+
+// make nice edge lines
+svg.append("line").attr(lineAttributes(corners[0], corners[1])).classed('axis', true);
+svg.append("line").attr(lineAttributes(corners[1], corners[2])).classed('axis', true);
+svg.append("line").attr(lineAttributes(corners[2], corners[0])).classed('axis', true);
+
+// Ajout de coordonnées textuelles à chaque déplacement sur le graphique triangulaire
+var coord_text = svg.append("text").attr("y",20)
+function mousemove() {
+    var coordinates = [0, 0];
+    coordinates = d3.mouse(this);
+    //coord_text.html("X: " + coordinates[0]+", Y: "+Math.round(coordinates[1]))
+};
+
+
+
+</script>
+
+</body>
+</html>

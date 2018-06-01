@@ -1,0 +1,263 @@
+	h2{
+		background-color: #729ce6;
+		text-align:center;
+		margin-top:0px;
+	}
+
+	#map { 
+		width: 700px; 
+		height: 540px;
+		margin-left:15px; 
+		margin-top:-10px;
+		z-index:0;
+	}
+
+	.info { 
+		padding: 6px 8px; 
+		font: 14px/16px Arial, Helvetica, sans-serif; 
+		background: white; 
+		background: rgba(255,255,255,0.8); 
+		box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+		border-radius: 5px;
+	} 
+
+	.info h4 { 
+		margin: 0 0 5px; 
+		color: #777;
+	}
+
+	.legend { 
+		text-align: left; 
+		line-height: 18px; 
+		color: #555; 
+	} 
+
+	.legend i { 
+		width: 18px; 
+		height: 18px; 
+		float: left; 
+		margin-right: 8px; 
+		opacity: 0.7; 
+	}
+
+	.container{
+		margin-left:200px;
+		text-align: left;
+	}
+
+	.form-group{
+		margin-top:30px;
+		text-align:left;
+	}
+
+	.dropdown{
+		margin-top:50px;
+		text-align:center;
+	}
+
+	line.axis {
+  		stroke: black;
+  		stroke-width: 2px;
+	}
+
+	line.major-tick {
+  		stroke: gray;
+  		stroke-width: 1px;
+	}
+
+	line.minor-tick {
+  		stroke: lightgray;
+  		stroke-width: 1px;
+	}
+
+	circle.datapoint {
+  		stroke: blue;
+  		stroke-width: 1px;
+  		fill: white;
+	}
+
+	circle.datapoint:hover{
+     	fill:red;
+	}
+	text.tick-text {
+  		font-size:0.8em;
+  		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  		border-collapse: separate;
+    	border-spacing: 20px;
+	}
+
+	.tooltip {
+  		position: absolute;
+  		max-width: 300px;
+  		max-height: 300px;
+  		width:auto;
+  		height:auto;
+  		pointer-events: none; /*Permet de passer à travers les infobulles*/
+  		background-color: lightgray;
+  		display: inline-block;
+  		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  		font-size:14px;
+  		margin-left: 10px;
+  		margin-top: 30px;
+  		border: 2px solid;
+    	border-radius: 25px;
+    	overflow:auto;
+    	padding: 10px;
+	}
+
+input, button {
+	font: inherit;
+	text-shadow: inherit;
+}
+
+button {
+	padding: .1em .5em;
+	border-radius: .3em;
+	background: hsl(80, 80%, 80%);
+	background: linear-gradient(hsl(40, 70%, 80%), hsl(40, 70%, 70%));
+	border: 1px solid rgba(0,0,0,.3);
+	box-shadow: 0 1px white inset, 0 .3em .3em -.3em rgba(0,0,0,.3);
+}
+
+/*input {
+	width: 12em;
+	padding: .1em .3em;
+	border: 0;
+	border: 1px solid hsl(35, 80%, 60%);
+	background: hsla(0,0%,100%,.2);
+	border-radius: .3em;
+	box-shadow: .05em .1em .3em rgba(0,0,0,.3) inset;
+}
+
+input:focus {
+	outline: none;
+	border: 1px solid #58a;
+	animation: pulsate 2s infinite alternate linear;
+	background: hsla(0,0%,100%,.5);
+}
+
+/*gère la boîte de recherche sans interaction*/
+ /*.text-field {
+    -moz-box-sizing: border-box;
+    border: 1px solid #EEEEEE;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600; /*400 = normal; 700 = gras*/
+   /* height: 37px;
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+}
+
+/*gère les propositions du faux menu déroulant*/
+/*.autocomplete-suggestion {
+    overflow: hidden; /*masque le mode menu déroulant*/
+  /*  padding: 2px 5px; 
+    white-space: nowrap;
+}
+
+/*gère les lettres des propositions du faux menus déroulant*/
+/*.autocomplete-suggestions strong {
+    color: #3399FF;
+    font-weight: normal;
+}
+
+/*gère l'effleurage du faux menu déroulant avec la souris*/
+/*.autocomplete-selected{
+  background:#F0F0F0;
+}
+
+.dropdown{
+	position: absolute;
+	z-index: 1;
+}
+
+#slide{
+	position: relative;
+	z-index: 1;
+}
+
+/*.leaflet-control-layers {
+	top:80px;
+}
+
+.info{
+	top:-120px;
+}
+
+.legend{
+	top:0px;
+}*/
+
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-top:320px;
+    z-index: 200;
+    margin-left:-70px;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 300px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px ;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -150px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/*.popup .hidden{
+	visibility: hidden;
+	-webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+#ternary{
+	margin-left:-170px;
+	margin-top:-50px;
+}
